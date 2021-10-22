@@ -63,7 +63,7 @@ void display(Node *m)
     
     while(focusChat->message[i] != '\0')
     {
-        printf("%c", *(char*)(focusChat->message[i]));
+        printf("%c", focusChat->message[i]);
         i++;
     }
 
@@ -87,8 +87,8 @@ int main()
     a->next = NULL;
 
     display(m);
-    SanitizeChatLog(m, a);
-    display(m);
+    //SanitizeChatLog(m, a);
+    //display(m);
 
     return 0;
 }
