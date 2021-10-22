@@ -22,6 +22,17 @@ void SanitizeChatLog(Node *messageList, Node *adminList)
 
     ChatLog *focusChat = messageList->content;
     Node *focusNode = adminList;
+
+    while(focusNode->next != NULL)
+    {
+        if(focusChat->username == focusNode->content)
+        {
+            return;
+        }
+
+        focusNode = focusNode->next;
+    }
+
     int c = strlen(focusChat->message);
 
     for(i = 0 ; i < c ; i++)
@@ -32,15 +43,8 @@ void SanitizeChatLog(Node *messageList, Node *adminList)
             l++;
     }
 
-    while(focusNode->next != NULL)
-    {
-        if(focusChat->username == adminList->content || l == u)
-        {
-            return;
-        }
-
-        focusNode = focusNode->next;
-    }
+    if(l == u)
+        return;
 
     for(i = 0 ; i < c ; i++)
     {
@@ -49,16 +53,12 @@ void SanitizeChatLog(Node *messageList, Node *adminList)
         else if(u > l && focusChat->message[i] >= 97 && focusChat->message[i] <= 122)
             focusChat->message[i] -= 32;
     }
-           
+
 }
 
 int main()
 {
-    char l = 'A';
+    char *s = "hola mundo";
 
-    char *s = "puto";
-
-    printf("%c", l + 32);
-    printf("%d", strlen(s));
     return 0;
 }
