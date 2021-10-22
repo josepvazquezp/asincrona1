@@ -42,22 +42,14 @@ void SanitizeChatLog(Node *messageList, Node *adminList)
         focusNode = focusNode->next;
     }
 
-    if(l > u)
+    for(i = 0 ; i < c ; i++)
     {
-        for(i = 0 ; i < c ; i++)
-        {
-            if(focusChat->message[i] >= 65 && focusChat->message[i] <= 90)
-                focusChat->message[i] += 32;
-        }
+        if(l > u && focusChat->message[i] >= 65 && focusChat->message[i] <= 90)
+            focusChat->message[i] += 32;
+        else if(u > l && focusChat->message[i] >= 97 && focusChat->message[i] <= 122)
+            focusChat->message[i] -= 32;
     }
-    else if(u > l)
-    {
-        for(i = 0 ; i < c ; i++)
-        {
-            if(focusChat->message[i] >= 97 && focusChat->message[i] <= 122)
-                focusChat->message[i] -= 32;
-        }
-    }
+           
 }
 
 int main()
