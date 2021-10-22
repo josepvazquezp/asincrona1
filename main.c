@@ -23,7 +23,7 @@ void SanitizeChatLog(Node *messageList, Node *adminList)
     ChatLog *focusChat = messageList->content;
     Node *focusNode = adminList;
 
-    while(focusNode->next != NULL)
+    while(focusNode != NULL)
     {
         if(strcmp(focusChat->username, focusNode->content) == 0)
         {
@@ -42,6 +42,9 @@ void SanitizeChatLog(Node *messageList, Node *adminList)
         else if(focusChat->message[i] >= 97 && focusChat->message[i] <= 122)
             l++;
     }
+
+    printf("l: %d\n", l);
+    printf("u: %d\n", u);
 
     if(l == u)
         return;
@@ -79,7 +82,7 @@ int main()
 
     ChatLog *prueba = malloc(sizeof(ChatLog));
 
-    prueba->message = "Hola mundO";
+    prueba->message = "Poyo";
     prueba->username = "bob";
 
     m->content = prueba;
