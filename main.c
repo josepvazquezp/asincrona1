@@ -56,9 +56,31 @@ void SanitizeChatLog(Node *messageList, Node *adminList)
 
 }
 
+void display(Node *m)
+{
+    ChatLog *focusChat = m->content;
+    printf("%s\n", focusChat->message);
+}
+
 int main()
 {
-    char *s = "hola mundo";
+    Node *m;
+    Node *a;
+
+    ChatLog *prueba;
+
+    prueba->message = "Hola mundO";
+    prueba->username = "bob";
+
+    m->content = prueba;
+    m->next = NULL;
+
+    a->content = "admin";
+    a->next = NULL;
+
+    display(m);
+    SanitizeChatLog(m, a);
+    display(m);
 
     return 0;
 }
