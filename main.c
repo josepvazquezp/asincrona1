@@ -63,9 +63,11 @@ void display(Node *m)
     
     while(focusChat->message[i] != '\0')
     {
-        printf("%c\n", *(char*)(focusChat->message[i]));
+        printf("%c", *(char*)(focusChat->message[i]));
         i++;
     }
+
+    printf("\n");
 }
 
 int main()
