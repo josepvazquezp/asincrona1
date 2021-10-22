@@ -25,7 +25,7 @@ void SanitizeChatLog(Node *messageList, Node *adminList)
 
     while(focusNode->next != NULL)
     {
-        if(focusChat->username == focusNode->content)
+        if(strcmp(focusChat->username, focusNode->content) == 0)
         {
             return;
         }
