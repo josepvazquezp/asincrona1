@@ -60,6 +60,8 @@ void display(Node *m)
 {
     ChatLog *focusChat = m->content;
     int i = 0;
+
+    //printf("%s", focusChat->message);
     
     while(focusChat->message[i] != '\0')
     {
@@ -72,10 +74,10 @@ void display(Node *m)
 
 int main()
 {
-    Node *m;
-    Node *a;
+    Node *m = malloc(sizeof(Node));
+    Node *a = malloc(sizeof(Node));
 
-    ChatLog *prueba;
+    ChatLog *prueba = malloc(sizeof(ChatLog));
 
     prueba->message = "Hola mundO";
     prueba->username = "bob";
@@ -87,8 +89,8 @@ int main()
     a->next = NULL;
 
     display(m);
-    //SanitizeChatLog(m, a);
-    //display(m);
+    SanitizeChatLog(m, a);
+    display(m);
 
     return 0;
 }
