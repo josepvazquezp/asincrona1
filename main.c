@@ -22,8 +22,9 @@ void SanitizeChatLog(Node *messageList, Node *adminList)
 
     ChatLog *focusChat = messageList->content;
     Node *focusNode = adminList;
+    int c = strlen(focusChat->message);
 
-    for(i = 0 ; i < strlen(focusChat->message) ; i++)
+    for(i = 0 ; i < c ; i++)
     {
         if(focusChat->message[i] >= 65 && focusChat->message[i] <= 90)
             u++;
@@ -43,7 +44,7 @@ void SanitizeChatLog(Node *messageList, Node *adminList)
 
     if(l > u)
     {
-        for(i = 0 ; i < strlen(focusChat->message) ; i++)
+        for(i = 0 ; i < c ; i++)
         {
             if(focusChat->message[i] >= 65 && focusChat->message[i] <= 90)
                 focusChat->message[i] += 32;
@@ -51,7 +52,7 @@ void SanitizeChatLog(Node *messageList, Node *adminList)
     }
     else if(u > l)
     {
-        for(i = 0 ; i < strlen(focusChat->message) ; i++)
+        for(i = 0 ; i < c ; i++)
         {
             if(focusChat->message[i] >= 97 && focusChat->message[i] <= 122)
                 focusChat->message[i] -= 32;
