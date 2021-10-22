@@ -59,7 +59,13 @@ void SanitizeChatLog(Node *messageList, Node *adminList)
 void display(Node *m)
 {
     ChatLog *focusChat = m->content;
-    printf("%s\n", focusChat->message);
+    int i = 0;
+    
+    while(focusChat->message[i] != '\0')
+    {
+        printf("%c\n", *(char*)(focusChat->message[i]));
+        i++;
+    }
 }
 
 int main()
