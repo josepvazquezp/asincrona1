@@ -43,20 +43,25 @@ void SanitizeChatLog(Node *messageList, Node *adminList)
             l++;
     }
 
-    printf("l: %d\n", l);
-    printf("u: %d\n", u);
-
     if(l == u)
         return;
 
+    char f[100];
+
     for(i = 0 ; i < c ; i++)
     {
+        f[i] = focusChat->message[i];
         if(l > u && focusChat->message[i] >= 65 && focusChat->message[i] <= 90)
-            focusChat->message[i] += 32;
+            f[i] += 32;
         else if(u > l && focusChat->message[i] >= 97 && focusChat->message[i] <= 122)
-            focusChat->message[i] -= 32;
+            f[i] -= 32;  
     }
 
+    f[i] = '\0';
+    
+    focusChat->message = malloc(sizeof(ChatLog));
+    strcpy(focusChat->message, f);
+    
 }
 
 void display(Node *m)
@@ -82,7 +87,7 @@ int main()
 
     ChatLog *prueba = malloc(sizeof(ChatLog));
 
-    prueba->message = "Poyo";
+    prueba->message = "HoLa";
     prueba->username = "bob";
 
     m->content = prueba;
