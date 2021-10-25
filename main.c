@@ -20,47 +20,55 @@ void SanitizeChatLog(Node *messageList, Node *adminList)
     int u = 0;
     int i;
 
-    ChatLog *focusChat = messageList->content;
-    Node *focusNode = adminList;
+    Node *focusLog = messageList;
 
-    while(focusNode != NULL)
+    while(focusLog != NULL)
     {
-        if(strcmp(focusChat->username, focusNode->content) == 0)
+        ChatLog *focusChat = messageList->content;
+        Node *focusNode = adminList;
+
+        while(focusNode != NULL)
         {
-            return;
+            if(strcmp(focusChat->username, focusNode->content) == 0)
+            {
+                return;
+            }
+
+            focusNode = focusNode->next;
         }
 
-        focusNode = focusNode->next;
+        int c = strlen(focusChat->message);
+
+        for(i = 0 ; i < c ; i++)
+        {
+            if(focusChat->message[i] >= 65 && focusChat->message[i] <= 90)
+                u++;
+            else if(focusChat->message[i] >= 97 && focusChat->message[i] <= 122)
+                l++;
+        }
+
+        if(l == u)
+            return;
+
+        char f[100];
+
+        for(i = 0 ; i < c ; i++)
+        {
+            f[i] = focusChat->message[i];
+            if(l > u && focusChat->message[i] >= 65 && focusChat->message[i] <= 90)
+                f[i] += 32;
+            else if(u > l && focusChat->message[i] >= 97 && focusChat->message[i] <= 122)
+                f[i] -= 32;  
+        }
+
+        f[i] = '\0';
+        
+        focusChat->message = malloc(sizeof(ChatLog));
+        strcpy(focusChat->message, f);
+
+        focusLog = focusLog->next;
+
     }
-
-    int c = strlen(focusChat->message);
-
-    for(i = 0 ; i < c ; i++)
-    {
-        if(focusChat->message[i] >= 65 && focusChat->message[i] <= 90)
-            u++;
-        else if(focusChat->message[i] >= 97 && focusChat->message[i] <= 122)
-            l++;
-    }
-
-    if(l == u)
-        return;
-
-    char f[100];
-
-    for(i = 0 ; i < c ; i++)
-    {
-        f[i] = focusChat->message[i];
-        if(l > u && focusChat->message[i] >= 65 && focusChat->message[i] <= 90)
-            f[i] += 32;
-        else if(u > l && focusChat->message[i] >= 97 && focusChat->message[i] <= 122)
-            f[i] -= 32;  
-    }
-
-    f[i] = '\0';
-    
-    focusChat->message = malloc(sizeof(ChatLog));
-    strcpy(focusChat->message, f);
     
 }
 
@@ -87,7 +95,7 @@ int main()
 
     ChatLog *prueba = malloc(sizeof(ChatLog));
 
-    prueba->message = "HoLa";
+    prueba->message = "Hola mundO";
     prueba->username = "bob";
 
     m->content = prueba;
