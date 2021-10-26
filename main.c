@@ -25,6 +25,9 @@ void SanitizeChatLog(Node *messageList, Node *adminList)
 
     while(focusLog != NULL)
     {
+        l = 0;
+        u = 0;
+
         ChatLog *focusChat = focusLog->content;
         Node *focusNode = adminList;
 
@@ -51,6 +54,7 @@ void SanitizeChatLog(Node *messageList, Node *adminList)
 
         if(l == u)
             flag = 1;
+    
         
         if(flag == 0)
         {
@@ -113,20 +117,38 @@ int main()
     ChatLog *prueba = malloc(sizeof(ChatLog));
     ChatLog *p2 = malloc(sizeof(ChatLog));
 
-    prueba->message = "Hola";
-    prueba->username = "admin";
+    ChatLog *p3 = malloc(sizeof(ChatLog));
+    ChatLog *p4 = malloc(sizeof(ChatLog));
+
+    Node *m3 = malloc(sizeof(Node));
+    Node *m4 = malloc(sizeof(Node));
+
+    prueba->message = "Hola mundO";
+    prueba->username = "bob";
 
     m->content = prueba;
     m->next = m2;
 
-    a->content = "admin";
+    a->content = "Admin";
     a->next = NULL;
 
-    p2->message = "adios a ESTO";
-    p2->username = "ralph";
+    p2->message = "ADIOS A todos";
+    p2->username = "alice";
 
     m2->content = p2;
-    m2->next = NULL;
+    m2->next = m3;
+
+    p3->message = "HoLa";
+    p3->username = "Ralph";
+
+    m3->content = p3;
+    m3->next = m4;
+    
+    p4->message = "ESTO es UNA PRUEBA";
+    p4->username = "Admin";
+
+    m4->content = p4;
+    m4->next = NULL;
 
     display(m);
     SanitizeChatLog(m, a);
