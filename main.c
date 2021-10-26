@@ -19,6 +19,7 @@ void SanitizeChatLog(Node *messageList, Node *adminList)
     int l = 0;
     int u = 0;
     int i;
+    int flag = 0;
 
     Node *focusLog = messageList;
 
@@ -31,7 +32,8 @@ void SanitizeChatLog(Node *messageList, Node *adminList)
         {
             if(strcmp(focusChat->username, focusNode->content) == 0)
             {
-                return;
+                flag = 1;
+                break;
             }
 
             focusNode = focusNode->next;
@@ -48,23 +50,28 @@ void SanitizeChatLog(Node *messageList, Node *adminList)
         }
 
         if(l == u)
-            return;
-
-        char f[100];
-
-        for(i = 0 ; i < c ; i++)
-        {
-            f[i] = focusChat->message[i];
-            if(l > u && focusChat->message[i] >= 65 && focusChat->message[i] <= 90)
-                f[i] += 32;
-            else if(u > l && focusChat->message[i] >= 97 && focusChat->message[i] <= 122)
-                f[i] -= 32;  
-        }
-
-        f[i] = '\0';
+            flag = 1;
         
-        focusChat->message = malloc(sizeof(f));
-        strcpy(focusChat->message, f);
+        if(flag == 0)
+        {
+            char f[100];
+
+            for(i = 0 ; i < c ; i++)
+            {
+                f[i] = focusChat->message[i];
+                if(l > u && focusChat->message[i] >= 65 && focusChat->message[i] <= 90)
+                    f[i] += 32;
+                else if(u > l && focusChat->message[i] >= 97 && focusChat->message[i] <= 122)
+                    f[i] -= 32;  
+            }
+
+            f[i] = '\0';
+            
+            focusChat->message = malloc(sizeof(f));
+            strcpy(focusChat->message, f);
+        }
+        else if(flag == 1)
+            flag = 0;
 
         focusLog = focusLog->next;
 
@@ -106,8 +113,8 @@ int main()
     ChatLog *prueba = malloc(sizeof(ChatLog));
     ChatLog *p2 = malloc(sizeof(ChatLog));
 
-    prueba->message = "Hola mundO";
-    prueba->username = "bob";
+    prueba->message = "Hola";
+    prueba->username = "admin";
 
     m->content = prueba;
     m->next = m2;
