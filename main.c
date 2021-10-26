@@ -24,7 +24,7 @@ void SanitizeChatLog(Node *messageList, Node *adminList)
 
     while(focusLog != NULL)
     {
-        ChatLog *focusChat = messageList->content;
+        ChatLog *focusChat = focusLog->content;
         Node *focusNode = adminList;
 
         while(focusNode != NULL)
@@ -63,7 +63,7 @@ void SanitizeChatLog(Node *messageList, Node *adminList)
 
         f[i] = '\0';
         
-        focusChat->message = malloc(sizeof(ChatLog));
+        focusChat->message = malloc(sizeof(f));
         strcpy(focusChat->message, f);
 
         focusLog = focusLog->next;
@@ -74,18 +74,26 @@ void SanitizeChatLog(Node *messageList, Node *adminList)
 
 void display(Node *m)
 {
-    ChatLog *focusChat = m->content;
-    int i = 0;
+    Node *focusLog = m;
+    //int i = 0;
 
-    //printf("%s", focusChat->message);
-    
-    while(focusChat->message[i] != '\0')
+   
+    while(focusLog != NULL)
     {
-        printf("%c", focusChat->message[i]);
-        i++;
-    }
+        ChatLog *focusChat = focusLog->content;
+        printf("%s\n", focusChat->message);
+        
+        // while(focusChat->message[i] != '\0')
+        // {
+        //     printf("%c", focusChat->message[i]);
+        //     i++;
+        // }
 
-    printf("\n");
+        //printf("\n");
+
+        focusLog = focusLog->next;
+
+    }
 }
 
 int main()
@@ -93,16 +101,25 @@ int main()
     Node *m = malloc(sizeof(Node));
     Node *a = malloc(sizeof(Node));
 
+    Node *m2 = malloc(sizeof(Node));
+
     ChatLog *prueba = malloc(sizeof(ChatLog));
+    ChatLog *p2 = malloc(sizeof(ChatLog));
 
     prueba->message = "Hola mundO";
     prueba->username = "bob";
 
     m->content = prueba;
-    m->next = NULL;
+    m->next = m2;
 
     a->content = "admin";
     a->next = NULL;
+
+    p2->message = "adios a ESTO";
+    p2->username = "ralph";
+
+    m2->content = p2;
+    m2->next = NULL;
 
     display(m);
     SanitizeChatLog(m, a);
